@@ -1,0 +1,17 @@
+body {
+    background: #2bbbad;
+    color: #fff;
+}
+
+.App {
+    text-align: center;
+    padding: 5%;
+}
+
+.tamagochi-section {
+    margin-top: 30px;
+    background: #2bbbad;
+    height: 300px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
