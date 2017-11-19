@@ -1,6 +1,6 @@
 body {
-    background: #2bbbad;
-    color: #fff;
+    background: #1a684e;
+    color: #ffffff;
 }
 
 .App {
@@ -14,4 +14,8 @@ body {
     height: 300px;
     border: 1px solid #fff;
     border-radius: 5px;
+}
+
+.stats {
+    background-color: #20a79c;
 }

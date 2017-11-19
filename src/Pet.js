@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'rc-progress';
-import { FormGroup, FormControl, Button, ButtonGroup } from 'react-bootstrap';
+import {Button, Icon} from 'react-materialize'
+import { FormGroup, FormControl, ButtonGroup } from 'react-bootstrap';
 
 import './App.css';
 
@@ -189,25 +190,27 @@ class Pet extends Component {
                 {name ? (
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-2">
-                                <h2>Statistics:</h2>
+                            <div className="row">
+                                <div className="col-lg-12">
+                                    <ButtonGroup horizontal>
+                                        <Button waves='light' onClick={() => this.feed()}>Feed</Button>
+                                        <Button waves='light' onClick={() => this.haveFun()}>Play</Button>
+                                        <Button waves='light' onClick={() => this.goToSleep()}>Sleep</Button>
+                                        <Button waves='light' onClick={() => this.cleanUp()}>Clean Up</Button>
+                                        <Button waves='light' onClick={() => this.fly()}>Fly</Button>
+                                    </ButtonGroup>
+                                </div>
+                            </div>
+                            <section className="col-lg-12  tamagochi-section">
+                                <h4>{this.state.message}</h4>
+                            </section>
+                        </div>
+                        <div className="row">
+                            <div className="col-lg-12">
                                 <span>Hungry:</span><Line name="hungry" percent={this.state.hungry} strokeWidth="1" strokeColor="#fff"/>
                                 <span>Sleepy:</span><Line name="hungry" percent={this.state.sleepy} strokeWidth="1" strokeColor="#fff"/>
                                 <span>Happiness:</span><Line name="hungry" percent={this.state.happiness} strokeWidth="1" strokeColor="#fff"/>
                                 <p>Clean: {this.state.clean ? 'Yes' : 'No'}</p>
-                            </div>
-                            <section className="col-lg-8 tamagochi-section">
-                                <h1>{this.state.message}</h1>
-                            </section>
-                            <div className="col-lg-2">
-                                <h2>Actions:</h2>
-                                <ButtonGroup vertical>
-                                    <Button onClick={() => this.feed()}>Feed</Button>
-                                    <Button onClick={() => this.haveFun()}>Play</Button>
-                                    <Button onClick={() => this.goToSleep()}>Sleep</Button>
-                                    <Button onClick={() => this.cleanUp()}>Clean Up</Button>
-                                    <Button onClick={() => this.fly()}>Fly</Button>
-                                </ButtonGroup>
                             </div>
                         </div>
                     </div>
@@ -217,7 +220,7 @@ class Pet extends Component {
                             <FormControl id="petName" type="text" placeholder="Pets name" />
                         </FormGroup>
                         <FormGroup>
-                            <Button type="submit">
+                            <Button waves='light' type="submit">
                                 Apply
                             </Button>
                         </FormGroup>
