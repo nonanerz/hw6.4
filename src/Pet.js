@@ -17,7 +17,7 @@ class Pet extends Component {
             happiness: 10,
             clean: true,
             timeToWakeUp: null,
-            message: null,
+            message: 'Hey!',
             chillIn: null
         }
     }
@@ -59,7 +59,7 @@ class Pet extends Component {
 
             if (this.state.chillIn > new Date()) {
                 this.setState({
-                    message: this.state.name + ' is mad. Do not touch him in: ' + (this.state.chillIn.getTime() - new Date()) / 1000,
+                    message: this.state.name + ' is mad. Do not disturb him in: ' + (this.state.chillIn.getTime() - new Date()) / 1000,
                     happiness: this.state.happiness +10
                 })
             }
@@ -70,7 +70,11 @@ class Pet extends Component {
     }
 
     goToSleep () {
-        if (this.state.sleepy >= 100) {
+        if (!this.isAvailable()) {
+            return
+        }
+
+        if (this.state.sleepy === 0) {
             this.setState({
                 message:  'No! >:(',
                 happiness: this.state.happiness -10
@@ -78,7 +82,7 @@ class Pet extends Component {
         } else {
             this.setState({
                 timeToWakeUp:  new Date(Date.now() + 10000),
-                sleepy: this.state.sleepy -40,
+                sleepy: this.state.sleepy -10,
                 hungry: this.state.hungry +10,
                 message: 'ZzZzzZZzz'
             });

@@ -19,3 +19,6 @@ body {
 .stats {
     background-color: #20a79c;
 }
+.rc-progress-line-trail {
+    stroke: #20a79c;
+}
