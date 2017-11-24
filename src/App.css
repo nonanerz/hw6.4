@@ -1,4 +1,4 @@
-body {
+.container {
     background: #1a684e;
     color: #ffffff;
 }
@@ -6,6 +6,11 @@ body {
 .App {
     text-align: center;
     padding: 5%;
+}
+
+img {
+    height: 200px;
+    width: auto;
 }
 
 .tamagochi-section {
@@ -21,4 +26,22 @@ body {
 }
 .rc-progress-line-trail {
     stroke: #20a79c;
+}
+.hidden {
+    display: none;
+}
+
+.haveFun {
+    position: relative;
+    animation-name: haveFun;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Standard syntax */
+@keyframes haveFun {
+    from {left: -300px;}
+    to {left: 300px;}
 }

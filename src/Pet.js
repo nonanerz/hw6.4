@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Line } from 'rc-progress';
-import {Button, Icon} from 'react-materialize'
+import {Button} from 'react-materialize'
 import { FormGroup, FormControl, ButtonGroup } from 'react-bootstrap';
-
+import sleep from './sleep.gif';
+import HappyRed from './HappyRed.png';
+import eats from './eats.png';
 import './App.css';
 
 class Pet extends Component {
@@ -11,7 +13,7 @@ class Pet extends Component {
         super(props);
         this.state = {
             name: null,
-            sleepy: 10,
+            sleepy: 20,
             hungry: 50,
             alive: true,
             happiness: 10,
@@ -24,13 +26,25 @@ class Pet extends Component {
 
 
     cleanUp () {
-        if (!this.isAvailable()) {
+        if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
 
         this.setState({
             clean: true,
         });
+    }
+
+    isSleepy() {
+        if (this.state.sleepy >= 100) {
+            this.setState({
+                message:  "I wanna sleep(((",
+                happiness: this.state.happiness - 10
+            });
+            return false
+        }
+
+        return true
     }
 
     isAvailable () {
@@ -42,12 +56,6 @@ class Pet extends Component {
         } else if (this.state.timeToWakeUp > new Date()) {
             this.setState({
                 message:  'Tss... ' + this.state.name + ' is sleeping. Time to wake up is: ' + (this.state.timeToWakeUp.getTime() - new Date()) / 1000
-            });
-            return false
-        } else if (this.state.sleepy >= 100) {
-            this.setState({
-                message:  'No, i wanna sleep(((',
-                happiness: this.state.happiness -10
             });
             return false
         }
@@ -70,6 +78,7 @@ class Pet extends Component {
     }
 
     goToSleep () {
+
         if (!this.isAvailable()) {
             return
         }
@@ -82,15 +91,21 @@ class Pet extends Component {
         } else {
             this.setState({
                 timeToWakeUp:  new Date(Date.now() + 10000),
-                sleepy: this.state.sleepy -10,
+                sleepy: this.state.sleepy -20,
                 hungry: this.state.hungry +10,
                 message: 'ZzZzzZZzz'
             });
+            let imageSleep = this.refs.imageSleep
+            let img = this.refs.image
+            let eats = this.refs.eats
+            imageSleep.className = ''
+            img.className = 'hidden'
+            eats.className = 'hidden'
         }
     }
 
     feed () {
-        if (!this.isAvailable()) {
+        if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
 
@@ -110,11 +125,18 @@ class Pet extends Component {
 
                 message: 'hmmm.. delicious!'
             });
+            let eats = this.refs.eats
+            let imageSleep = this.refs.imageSleep
+            let img = this.refs.image
+            imageSleep.className = 'hidden'
+            img.className = 'hidden'
+            eats.className = ''
         }
     }
 
     haveFun () {
-        if (!this.isAvailable()) {
+
+        if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
         if (this.state.happiness === 100) {
@@ -139,6 +161,14 @@ class Pet extends Component {
             });
         }
 
+        let imageSleep = this.refs.imageSleep
+        let img = this.refs.image
+        let eats = this.refs.eats
+
+        imageSleep.className = 'hidden'
+        img.className = 'haveFun'
+        eats.className = 'hidden'
+
         this.setState({
             clean: false,
             hungry: this.state.hungry + 10,
@@ -148,7 +178,7 @@ class Pet extends Component {
     }
 
     fly () {
-        if (!this.isAvailable()) {
+        if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
 
@@ -196,7 +226,7 @@ class Pet extends Component {
                         <div className="row">
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <ButtonGroup horizontal>
+                                    <ButtonGroup>
                                         <Button waves='light' onClick={() => this.feed()}>Feed</Button>
                                         <Button waves='light' onClick={() => this.haveFun()}>Play</Button>
                                         <Button waves='light' onClick={() => this.goToSleep()}>Sleep</Button>
@@ -207,6 +237,9 @@ class Pet extends Component {
                             </div>
                             <section className="col-lg-12  tamagochi-section">
                                 <h4>{this.state.message}</h4>
+                                <img className="" src={HappyRed} alt="sad" ref="image" />
+                                <img className="hidden" src={sleep} alt="sad" ref="imageSleep" />
+                                <img className="hidden" src={eats} alt="sad" ref="eats" />
                             </section>
                         </div>
                         <div className="row">
