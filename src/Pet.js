@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Line } from 'rc-progress';
 import {Button} from 'react-materialize'
 import { FormGroup, FormControl, ButtonGroup } from 'react-bootstrap';
-import sleep from './sleep.gif';
-import HappyRed from './HappyRed.png';
-import flybird from './fly.jpg';
-import dead from './dead.png';
-import eats from './eats.png';
+import sleep from './img/sleep.gif';
+import HappyRed from './img/HappyRed.png';
+import flybird from './img/fly.jpg';
+import dead from './img/dead.png';
+import eats from './img/eats.png';
 import './App.css';
 
 class Pet extends Component {
@@ -32,7 +32,6 @@ class Pet extends Component {
         if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
-
         this.setState({
             clean: true,
         });
@@ -47,7 +46,6 @@ class Pet extends Component {
             });
             return false
         }
-
         return true
     }
 
@@ -68,7 +66,6 @@ class Pet extends Component {
             this.setState({
                 chillIn: new Date(Date.now() + 10000),
             })
-
             if (this.state.chillIn > new Date()) {
                 this.setState({
                     message: this.state.name + ' is mad. Do not disturb him in: ' + (this.state.chillIn.getTime() - new Date()) / 1000,
@@ -77,16 +74,13 @@ class Pet extends Component {
             }
             return false
         }
-
         return true
     }
 
     goToSleep () {
-
         if (!this.isAvailable()) {
             return
         }
-
         if (this.state.sleepy === 0) {
             this.setState({
                 message:  'No! >:(',
@@ -95,7 +89,7 @@ class Pet extends Component {
         } else {
             this.setState({
                 timeToWakeUp:  new Date(Date.now() + 10000),
-                sleepy: this.state.sleepy -20,
+                sleepy: this.state.sleepy -10,
                 hungry: this.state.hungry +10,
                 message: 'ZzZzzZZzz',
                 image: sleep
@@ -108,7 +102,6 @@ class Pet extends Component {
         if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
-
         if (this.state.clean === false) {
             this.setState({
                 message:  'I have played not so a long ago. So you should clean me up :('
@@ -157,7 +150,6 @@ class Pet extends Component {
                 message: 'Woooohooo!!!'
             });
         }
-
         this.setState({
             clean: false,
             hungry: this.state.hungry + 10,
@@ -172,7 +164,6 @@ class Pet extends Component {
         if (!this.isAvailable() || !this.isSleepy()) {
             return
         }
-
         if (this.state.hungry === 90) {
             this.setState({
                 message:  'I\'m extremely hungry!! Please feed me.',
@@ -193,7 +184,6 @@ class Pet extends Component {
             });
             this.setImageClass('haveFun')
         }
-
         this.setState({
             clean: false,
             hungry: this.state.hungry + 10,
@@ -210,8 +200,7 @@ class Pet extends Component {
     }
 
     setImageClass(value) {
-        value = value ? value : '';
-        this.refs.image.className = value
+        this.refs.image.className = value ? value : '';
     }
 
 
