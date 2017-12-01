@@ -4,6 +4,8 @@ import {Button} from 'react-materialize'
 import { FormGroup, FormControl, ButtonGroup } from 'react-bootstrap';
 import sleep from './sleep.gif';
 import HappyRed from './HappyRed.png';
+import flybird from './fly.jpg';
+import dead from './dead.png';
 import eats from './eats.png';
 import './App.css';
 
@@ -20,7 +22,8 @@ class Pet extends Component {
             clean: true,
             timeToWakeUp: null,
             message: 'Hey!',
-            chillIn: null
+            chillIn: null,
+            image: HappyRed
         }
     }
 
@@ -33,6 +36,7 @@ class Pet extends Component {
         this.setState({
             clean: true,
         });
+        this.setImageClass()
     }
 
     isSleepy() {
@@ -93,14 +97,10 @@ class Pet extends Component {
                 timeToWakeUp:  new Date(Date.now() + 10000),
                 sleepy: this.state.sleepy -20,
                 hungry: this.state.hungry +10,
-                message: 'ZzZzzZZzz'
+                message: 'ZzZzzZZzz',
+                image: sleep
             });
-            let imageSleep = this.refs.imageSleep
-            let img = this.refs.image
-            let eats = this.refs.eats
-            imageSleep.className = ''
-            img.className = 'hidden'
-            eats.className = 'hidden'
+            this.setImageClass()
         }
     }
 
@@ -122,15 +122,10 @@ class Pet extends Component {
             this.setState({
                 hungry: this.state.hungry - 10,
                 sleepy: this.state.sleepy + 10,
-
-                message: 'hmmm.. delicious!'
+                message: 'hmmm.. delicious!',
+                image: eats
             });
-            let eats = this.refs.eats
-            let imageSleep = this.refs.imageSleep
-            let img = this.refs.image
-            imageSleep.className = 'hidden'
-            img.className = 'hidden'
-            eats.className = ''
+            this.setImageClass()
         }
     }
 
@@ -152,8 +147,10 @@ class Pet extends Component {
         } else if (this.state.hungry >= 100) {
             this.setState({
                 alive: false,
-                message: 'R.I.P. ' + this.state.name
+                message: 'R.I.P. ' + this.state.name,
+                image: dead
             });
+            this.setImageClass()
             return
         } else {
             this.setState({
@@ -161,20 +158,14 @@ class Pet extends Component {
             });
         }
 
-        let imageSleep = this.refs.imageSleep
-        let img = this.refs.image
-        let eats = this.refs.eats
-
-        imageSleep.className = 'hidden'
-        img.className = 'haveFun'
-        eats.className = 'hidden'
-
         this.setState({
             clean: false,
             hungry: this.state.hungry + 10,
             sleepy: this.state.sleepy + 10,
             happiness: this.state.happiness + 10,
+            image: HappyRed
         });
+        this.setImageClass('haveFun')
     }
 
     fly () {
@@ -190,13 +181,17 @@ class Pet extends Component {
         } else if (this.state.hungry >= 100) {
             this.setState({
                 alive: false,
-                message: 'R.I.P. ' + this.state.name
+                message: 'R.I.P. ' + this.state.name,
+                image: dead
             });
+            this.setImageClass()
             return
         } else {
             this.setState({
-                message: 'The pilot flew to Cuba. The pilot is ' + this.state.name
+                message: 'The pilot flew to Cuba. The pilot is ' + this.state.name,
+                image: flybird
             });
+            this.setImageClass('haveFun')
         }
 
         this.setState({
@@ -212,6 +207,11 @@ class Pet extends Component {
         if (document.getElementById('petName').value !== '') {
             this.setState({ name: document.getElementById('petName').value })
         }
+    }
+
+    setImageClass(value) {
+        value = value ? value : '';
+        this.refs.image.className = value
     }
 
 
@@ -237,9 +237,7 @@ class Pet extends Component {
                             </div>
                             <section className="col-lg-12  tamagochi-section">
                                 <h4>{this.state.message}</h4>
-                                <img className="" src={HappyRed} alt="sad" ref="image" />
-                                <img className="hidden" src={sleep} alt="sad" ref="imageSleep" />
-                                <img className="hidden" src={eats} alt="sad" ref="eats" />
+                                <img className="" src={this.state.image} alt="sad" ref="image" />
                             </section>
                         </div>
                         <div className="row">
